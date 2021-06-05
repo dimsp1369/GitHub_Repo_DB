@@ -21,18 +21,21 @@ module.exports = {
     // Output - указываем куда webpack будет собирать файлы
     output: {
         path: path.resolve(__dirname, "dist"), // Папка dist куда webpack будет делать сборку
-        filename: "[name].[hash].js" // указываем имя файла куда будет делать сборка все js файлов.
+        filename: "[name].[hash].js", // указываем имя файла куда будет делать сборка все js файлов.
         // Используем регулярные выражения которые помогут избаыаиться от проблем с хэшированием при разработке.
         // Это необходима для того чтобы WP отслеживал js файлы и делал уникальные названия
         // Подробнее можно прочитать в документации Webpack
+        publicPath: "/", // параметр необходимый для правильного перехода на страницы и не возникания проблем с хэшированием
     },
     // Устанаваливаем npm i -g webpack-dev-server для автозапуска сборки и в package.json прописываем скрипт для закпуска
     devServer: {
-        port: 3000
+        port: 3000,
+        historyApiFallback: true, // необхсдимый параметр для history API browser
     },
     // добавляем с какими расширениями булет работать webpack
     resolve: {
         extensions: ['.js', '.jsx'],
+
     },
     // Устанавливаем WP плагины (npm i -D html-webpack-plugin clean-webpack-plugin)
     // HTML plugin - необходим для переноса html шаблона в папку dist и импортирует в него все соответствующие js bundlы которые собирает WP
@@ -70,7 +73,7 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: ["@babel/preset-react" ,'@babel/preset-env']
+                        presets: ["@babel/preset-react", '@babel/preset-env']
                     }
                 }
             }
