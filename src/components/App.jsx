@@ -1,9 +1,9 @@
 import React from 'react';
 import "./App.less"
-import {useDispatch, useSelector} from "react-redux";
 import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import Main from "./main/Main";
 import Card from "./card/Card";
+import Error from "./Error";
 
 
 const App = () => {
@@ -15,6 +15,7 @@ const App = () => {
                 <Switch>
                     <Route exact path="/" component={Main}/> // параметр exact указывает на необходимость полного совподения пути
                     <Route path="/card/:username/:reponame" component={Card}/>
+                    <Route path="/error" component={Error}/>
                     <Redirect to="/"/> /* параметр для перенаправления на главную страницу при несуществующем пути */
                 </Switch>
             </div>
